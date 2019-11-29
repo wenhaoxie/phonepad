@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+
+    <div >
+        <label for="username">Phone Number</label>
+        <input id="username" name="username" type="text">
+        <button id="login-btn">submit</button>
+        <p id="login-error"></p>
+    </div>
+    <script>
+        document.querySelector('#login-btn').addEventListener('click', login);
+        function login() {
+
+            var num = document.querySelector('#username').value;
+
+            var url = './number/'+ num.toString();
+
+
+            ajax('GET', url, showLoginError());
+
+        }
+        function ajax(method, url,  errorCallback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.querySelector('#login-error').innerHTML = xhr.responseText;
+                } else {
+                    console.log(xhr.status);
+                    errorCallback();
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error("The request couldn't be completed.");
+                errorCallback();
+            };
+
+
+
+            xhr.send();
+
+        }
+        function showLoginError() {
+
+            document.querySelector('#login-error').innerHTML = 'Invalid phone number';
+
+        }
+    </script>
+</body>
+</html>
