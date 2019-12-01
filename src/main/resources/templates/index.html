@@ -8,7 +8,7 @@
 
     <div >
         <label for="username">Phone Number</label>
-        <input id="username" name="username" type="text">
+        <input id="username" name="username" type="text"  maxlength="10" minlength="10" οnkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" >
         <button id="login-btn">submit</button>
         <p id="login-error"></p>
     </div>
